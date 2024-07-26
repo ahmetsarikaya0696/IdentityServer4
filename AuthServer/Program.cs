@@ -1,14 +1,27 @@
 using AuthServer;
+using AuthServer.Models;
+using AuthServer.Repositories;
+using AuthServer.Services;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddScoped<ICustomUserRepository, CustomUserRepository>();
+
+string connectionString = builder.Configuration.GetConnectionString("sqlServer");
+builder.Services.AddDbContext<CustomDbContext>(options =>
+{
+    options.UseSqlServer(connectionString);
+});
 
 builder.Services.AddIdentityServer()
                 .AddInMemoryApiResources(Config.GetApiResources())
                 .AddInMemoryApiScopes(Config.GetApiScopes())
                 .AddInMemoryClients(Config.GetClients())
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
-                .AddTestUsers(Config.GetTestUsers())
-                .AddDeveloperSigningCredential();
+                //.AddTestUsers(Config.GetTestUsers()) // Test user ile çalýþýlýrken eklenir
+                .AddDeveloperSigningCredential()
+                .AddProfileService<CustomProfileService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

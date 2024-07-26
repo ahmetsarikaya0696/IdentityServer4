@@ -82,7 +82,8 @@ namespace AuthServer
                         "api1.read",
                         IdentityServerConstants.StandardScopes.OfflineAccess,
                         "CountryAndCity",
-                        "Roles"
+                        "Roles",
+                        IdentityServerConstants.StandardScopes.Email,
                     ],
                     AccessTokenLifetime = 2 * 60 * 60,
                     RefreshTokenUsage = TokenUsage.ReUse,
@@ -123,6 +124,7 @@ namespace AuthServer
         {
             return
             [
+                new IdentityResources.Email(),
                 new IdentityResources.OpenId(),
                 new IdentityResources.Profile(),
                 new IdentityResource()

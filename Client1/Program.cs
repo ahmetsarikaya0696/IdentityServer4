@@ -36,8 +36,11 @@ builder.Services.AddAuthentication(options =>
       options.ClaimActions.MapUniqueJsonKey("role", "role");
       options.TokenValidationParameters = new TokenValidationParameters()
       {
-          RoleClaimType = "role"
+          RoleClaimType = "role",
+          NameClaimType = "name"
       };
+
+      options.Scope.Add("email");
   });
 
 builder.Services.AddControllersWithViews();
