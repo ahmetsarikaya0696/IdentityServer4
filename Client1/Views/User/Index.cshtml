@@ -1,0 +1,52 @@
+﻿@using Microsoft.AspNetCore.Authentication;
+@{
+    ViewData["Title"] = "Index";
+    var authenticationPropertyDict = (await Context.AuthenticateAsync()).Properties.Items;
+}
+
+<a asp-action="Logout" class="btn btn-primary">Logout</a>
+<a asp-action="GetRefreshToken" class="btn btn-success">GetRefreshToken</a>
+
+<h1>Sadece üyelerin girebileceği sayfa</h1>
+
+<h3>Claims</h3>
+<hr />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Claim Type</th>
+            <th scope="col">Claim Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var claim in User.Claims)
+        {
+            <tr>
+                <td>@claim.Type</td>
+                <td>@claim.Value</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h3>Authentication Verileri</h3>
+<hr />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Auth Property Key</th>
+            <th scope="col">Auth Property Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var authenticationProperty in authenticationPropertyDict)
+        {
+            <tr>
+                <td>@authenticationProperty.Key</td>
+                <td>@authenticationProperty.Value</td>
+            </tr>
+        }
+    </tbody>
+</table>
