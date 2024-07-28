@@ -117,6 +117,29 @@ namespace AuthServer
                     AllowOfflineAccess = true, // refresh token yayınlanmasını sağlar
                     RequireConsent = true,
                 },
+                  new Client()
+                {
+                    ClientName = "Client1 ResourceOwner Mvc Uygulaması",
+                    ClientId = "Client1-ResourceOwner-Mvc",
+                    ClientSecrets =
+                    [
+                        new Secret("secret".Sha256()),
+                    ],
+                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+                    AllowedScopes = [
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "api1.read",
+                        IdentityServerConstants.StandardScopes.OfflineAccess,
+                        "CountryAndCity",
+                        "Roles",
+                        IdentityServerConstants.StandardScopes.Email,
+                    ],
+                    AccessTokenLifetime = 2 * 60 * 60,
+                    RefreshTokenUsage = TokenUsage.ReUse,
+                    AbsoluteRefreshTokenLifetime = 60 * 24 * 60 * 60,
+                    AllowOfflineAccess = true, // refresh token yayınlanmasını sağlar
+                },
             ];
         }
 

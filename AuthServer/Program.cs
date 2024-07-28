@@ -21,7 +21,8 @@ builder.Services.AddIdentityServer()
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
                 //.AddTestUsers(Config.GetTestUsers()) // Test user ile çalýþýlýrken eklenir
                 .AddDeveloperSigningCredential()
-                .AddProfileService<CustomProfileService>();
+                .AddProfileService<CustomProfileService>()
+                .AddResourceOwnerValidator<ResourceOwnerPasswordValidator>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
